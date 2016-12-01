@@ -32,7 +32,7 @@
             if($this->result && $this->result->num_rows>0){
                 
                 
-                $this->row=$this->result->fetch_array(MYSQL_ASSOC);
+                $this->row=$this->result->fetch_assoc();
                
             }
             return $this->row; 
