@@ -12,7 +12,7 @@
 				$this->m=new $this->type();
 			}
 		}
-		private function addServer($arr){//添加服务器
+		public function addServer($arr){//添加服务器
 			$this->m->addServers($arr);
 		}
 		
