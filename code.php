@@ -9,7 +9,7 @@
 	for($i=0;$i<4;$i++){//生成内容
 		$font=6;
 		$color=imagecolorallocate($image,rand(0,120),rand(0,120),rand(0,120));
-		$string='abcdefghijkmnpqrstuvwxy3456789';
+		$string='abcdefghijkmnpqrstuvwxy123456789';
 		$fontcontent=substr($string,rand(0, strlen($string)),1);
 		$identify_code.=$fontcontent;
 		$x=($i*100/4)+rand(5,10);
