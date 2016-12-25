@@ -16,3 +16,15 @@
 	$arr=array(34,45,23,345,76,1,3,66);
 	print_r(Bubble_sort($arr));
 ?>
+
+//九九乘法表
+<?php
+	header('content-type:text/html;charset=utf-8');
+	for($i=1;$i<=9;$i++){
+		for($j=1;$j<=$i;$j++){
+			echo "{$i}*{$j}=".($i*$j)."&nbsp;&nbsp;";
+		}
+		echo "</br>";
+		
+	}
+	?>
