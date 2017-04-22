@@ -84,6 +84,49 @@
 			}
 		}
 		
+		public function op_delete($table,$where=null,$group=null,$having=null,$order=null,$limit=null){
+			$sql='delete from '.$table
+			.$this->_parseWhere($where)
+			.$this->_parseGroup($group)
+			.$this->_parseHaving($having)
+			.$this->_parseOrder($order)
+			.$this->_parseLimit($limit);
+			
+			return $this->_pdo->exec($sql);
+		}
+		
+		public function op_update($table,$data=array(),$where=null,$group=null,$having=null,$order=null,$limit=null){
+			$sets='';
+			foreach ($data as $key => $value) {
+				$sets.=$key.'='.$value.',';
+			}
+			$sets=rtrim($sets,',');
+			$sql="update {$table} set {$sets} "
+			.$this->_parseWhere($where)
+			.$this->_parseGroup($group)
+			.$this->_parseHaving($having)
+			.$this->_parseOrder($order)
+			.$this->_parseLimit($limit);
+			return $this->_pdo->exec($sql);
+		}
+		
+		public function getLastId(){
+			if(!isset($this->_pdo)){
+				return false;
+			}
+			return $this->_pdo->lastInsertId();
+		}
+		
+		public function getNumOfTable($tables,$where=null,$group=null,$having=null,$order=null,$limit=null){
+			$sql="select count(*) from {$tables}"
+			.$this->_parseWhere($where)
+			.$this->_parseGroup($group)
+			.$this->_parseHaving($having)
+			.$this->_parseOrder($order)
+			.$this->_parseLimit($limit);
+			
+			return $this->get_one_row($sql);
+		}
 		public function find($fields='*',$table,$where=null,$group=null,$having=null,$order=null,$limit=null){
 			$sql='select '.$fields.' from '.$table
 			.$this->_parseWhere($where)
@@ -134,11 +177,15 @@
 		private function _parseLimit($limit){
 			$limitStr='';
 			if(is_string($limit) && !empty($limit)){
-				$limitStr.=$limit;
+				$limitStr.='limit '.$limit;
 			}elseif (is_array($limit)) {
-				$limitStr.=implode(',', $limit);
+				if(sizeof($limit)>1){
+					$limitStr.='limit '.$limit[0].','.$limit[1];
+				}else{
+					$limitStr.='limit '.$limit[0];
+				}
 			}
-			
+			return empty($limitStr)?'':$limitStr;
 		}
 		private function _free(){
 			$this->_pdoStatement=null;
@@ -147,7 +194,4 @@
 			$error='<script>alert({$errorMsg});</script>';
 		}
 	}
-	$link=new PdoMySQL('root','123456','test');
-	$aaa=$link->op_insert(array(6,'a',1,'cc',300.00),'t1');
-	var_dump($aaa);
 ?>
