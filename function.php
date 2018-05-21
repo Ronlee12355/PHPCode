@@ -43,7 +43,7 @@ function check_upload($file) {
 		  $data = trim($data);
 		  $data = htmlspecialchars($data);
 		  $data = strip_tags($data);
-		  if(!get_magic_quotes_gpc){
+		  if(!get_magic_quotes_gpc()){
 			  $data = addslashes($data);
 		   }
 		  return $data;
