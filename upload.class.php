@@ -1,5 +1,5 @@
 <?php
-	//文件上传检测类
+	namespace Uploads;
 	class upload{
 		protected $fileName;
 		protected $uploadPath;
@@ -12,7 +12,7 @@
 		protected $maxSize;
 		protected $destination;
 		public function __construct($fileName='myFile',$uploadPath='./uploads',$maxSize=5555555555,$imgFlag=true,$allowExt=array('image/jpg','image/jpeg','image/png','image/gif'),$allowExt=array('jpg','jpeg','gif')){
-			$this->fileName=$fileName;//初始化变量，如果用户不输入，就用默认值
+			$this->fileName=$fileName;
 			$this->uploadPath=$uploadPath;
 			$this->allowExt=$allowExt;
 			$this->allowMime=$allowMime;
@@ -20,7 +20,7 @@
 			$this->maxSize=$maxSize;
 			$this->fileInfo=$_FILES[$this->fileName];
 		}
-		public function checkError(){//检查错误
+		public function checkError(){
 			if(!is_null($this->fileInfo)){
 				if($this->fileInfo['error']>0){
 				switch($this->fileInfo['error']){
