@@ -68,4 +68,10 @@ function check_upload($file) {
 	    }  
 	    $pageStr=$str.$sep . $index .$sep. $prev.$sep . $p.$sep . $next.$sep . $last;  
 	    return $pageStr;  
-	}  
+	}
+
+     function phone_number($mobile){
+	$is_good=preg_match("/^1[34578]\d{9}$/", $mobile);
+	return $is_good?true:false;
+	}
+					
