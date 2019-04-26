@@ -72,9 +72,9 @@ class DB {
     public function getCount($table, $where=array()){
         if(count($where) != 0){
             $w = $this->parseWhere($where);
-            $sql = 'SELECT COUNT(*) AS total FROM '.$table.' WHERE '.$w;
+            $sql = 'SELECT COUNT(id) AS total FROM '.$table.' WHERE '.$w;
         }else{
-            $sql = 'SELECT COUNT(*) AS total FROM '.$table;
+            $sql = 'SELECT COUNT(id) AS total FROM '.$table;
         }
         $res = self::$_dbSource->query($sql)->fetchAll();
         return intval($res[0]['total']);
